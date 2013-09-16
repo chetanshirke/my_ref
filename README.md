@@ -20,16 +20,13 @@
 * Apache strees test using ab
 		Performance Testing your Web Server
 
-		To benchmark the performance of your web server applications we recommend the
-		Apache "ab" tool.  The ab tool will show how many requests per second your 
-		Apache installation is capable of serving. The ab tool is a part of the Apache
-		httpd package in CentOS and Red Hat distributions and the "apache2-utils" 
-		package in Debian.
+		To benchmark the performance of your web server applications we recommend the Apache "ab" tool.  The ab tool will 
+		show how many requests per second your Apache installation is capable of serving.  The ab tool is a part of the 
+		Apache httpd package in CentOS and Red Hat distributions and the "apache2-utils" package in Debian.
 
-		Below is the basic ab command and its output.  The -c parameter specifies the 
-		number of connections; the -k stands for HTTP Keep-Alive; and the -t parameter
-		sets the time in seconds for which each connection is alive.  The application
-		is then hammered through those connections.
+		Below is the basic ab command and its output.  The -c parameter specifies the number of connections; the -k stands
+		for HTTP Keep-Alive; and the -t parameter sets the time in seconds for which each connection is alive.  The 
+		application is then hammered through those connections.
 
 		# ab -kc 20 -t 60 http://8.19.73.87/index.html
 
@@ -76,9 +73,8 @@
 		  99%  14223
 		 100%  14269 (longest request)
 
-		To perform a "flood" test we set the number of requests (-n) to, 
-		say, 5000, and assign the number of concurrent connections{{ (-c}})
-		to something like 200:
+		To perform a "flood" test we set the number of requests (-n) to, say, 5000, and assign the number of concurrent
+		connections{{ (-c}}) to something like 200:
 
 		# ab -n 5000 -c 200 http://8.19.73.87/index.html
 
@@ -103,12 +99,11 @@
 		HTML transferred:       89428 bytes
 		Requests per second:    1.55 [#/sec] (mean)
 		Time per request:       644.338 [ms] (mean)
-		Time per request:       644.338 [ms] 
-		(mean, across all concurrent requests)
+		Time per request:       644.338 [ms] (mean, across all concurrent requests)
 		Transfer rate:          0.70 [Kbytes/sec] received
 
 		Connection Times (ms)
-		min  mean[+/-sd] median   max
+					  min  mean[+/-sd] median   max
 		Connect:      206  340 509.5    250    3324
 		Processing:   207  302 450.1    250    7830
 		Waiting:      206  285 201.5    250    2693
@@ -125,28 +120,25 @@
 		  99%   3649
 		 100%   8081 (longest request)
 
-		If the ab output makes you suspect issues, it is useful to look 
-		into any replies using tcpdump.  In particular, tcp-rst replies 
-		could appear.  To catch them, use:
+		If the ab output makes you suspect issues, it is useful to look into any replies using tcpdump.  In particular,
+		tcp-rst replies could appear.  To catch them, 
+		use:
 
 		# tcpdump -nn 'tcp[tcpflags] == tcp-rst' and port 80
 
-		tcpdump: verbose output suppressed, use -v or -vv for full protocol	decode
+		tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 		listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
-		10:59:06.036411 IP 89.253.250.50.53261 > 8.19.73.87.80:R 179261015:179261015(0)
-		10:59:06.036521 IP 89.253.250.50.53261 > 8.19.73.87.80:R 179261015:179261015(0)
-		10:59:06.036553 IP 89.253.250.50.53261 > 8.19.73.87.80:R 179261016:179261016(0)
+		10:59:06.036411 IP 89.253.250.50.53261 > 8.19.73.87.80: R 179261015:179261015(0) win 0
+		10:59:06.036521 IP 89.253.250.50.53261 > 8.19.73.87.80: R 179261015:179261015(0) win 0
+		10:59:06.036553 IP 89.253.250.50.53261 > 8.19.73.87.80: R 179261016:179261016(0) win 0
 
-		We are interested mostly in tcp-rst server replies, as they point to 
-		misconfiguration or performance issues.  To catch server-side tcp-rst replies 
-		use:
+		We are interested mostly in tcp-rst server replies, as they point to misconfiguration or performance issues.
+		To catch server-side tcp-rst replies use:
 
 		# tcpdump -nn 'tcp[tcpflags] == tcp-rst' and port 80 and src host 89.253.250.50
 
 		where 89.253.250.50 is the server hosting your tests.
 
-
-	
 
 
 ###Database

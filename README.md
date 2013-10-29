@@ -2,6 +2,18 @@
 
 ##Applications
 
+Centos 5.x
+
+wget http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
+sudo rpm -Uvh remi-release-5*.rpm epel-release-5*.rpm
+
+Centos 6.x
+
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+
 ###Security
 
 ###HAProxy
@@ -147,6 +159,7 @@
 ##Networking
 
 Network timeout test
+
 netstat -on | grep TIME_WAIT | less
 
 ###Security

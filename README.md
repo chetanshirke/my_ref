@@ -166,6 +166,10 @@ Network timeout test
 
 netstat -on | grep TIME_WAIT | less
 
+TCPDUMP
+
+tcpdump -i any port 80 -s 4096 -w trace.pcap
+
 ###Security
 
 

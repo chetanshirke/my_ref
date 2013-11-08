@@ -170,6 +170,18 @@ TCPDUMP
 
 tcpdump -i any port 80 -s 4096 -w trace.pcap
 
+SYNC Attack
+
+Log in messages : possible SYN flooding on port 80. Sending cookies
+
+URL : http://forum.ovh.co.uk/showthread.php?t=6455
+
+net.ipv4.tcp_syncookies = 1
+
+net.ipv4.tcp_max_syn_backlog = 2048
+
+net.ipv4.tcp_synack_retries = 3
+
 ###Security
 
 

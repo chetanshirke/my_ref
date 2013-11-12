@@ -166,6 +166,8 @@ Network timeout test
 
 netstat -on | grep TIME_WAIT | less
 
+netstat -ant | grep 554 | awk '{print $6}' | sort | uniq -c | sort -n
+
 TCPDUMP
 
 tcpdump -i any port 80 -s 4096 -w trace.pcap

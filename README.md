@@ -23,6 +23,8 @@ sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 ###HAProxy
 
   http://blog.exceliance.fr/2012/02/27/use-a-load-balancer-as-a-first-row-of-defense-against-ddos/
+  
+  http://www.severalnines.com/resources/clustercontrol-mysql-haproxy-load-balancing-tutorial
 
 ###Load Balancers
 

@@ -235,7 +235,7 @@ net.ipv4.tcp_synack_retries = 3
 	net.ipv4.ip_local_port_range = 1024 65535
 
 	# settings for syn floods 
-	net.ipv4.tcp_max_syn_backlog = 262144
+	net.ipv4.tcp_max_syn_backlog = 662144
 	# Increase number of incoming connections backlog
 	net.core.netdev_max_backlog = 40000
 	# Increase the tcp-time-wait buckets pool size

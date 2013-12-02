@@ -186,6 +186,86 @@ net.ipv4.tcp_max_syn_backlog = 2048
 
 net.ipv4.tcp_synack_retries = 3
 
+	# Kernel sysctl configuration file for Red Hat Linux
+	#
+	# For binary values, 0 is disabled, 1 is enabled.  See sysctl(8) and
+	# sysctl.conf(5) for more details.
+
+	# Controls IP packet forwarding
+	net.ipv4.ip_forward = 0
+
+	# Controls source route verification
+	net.ipv4.conf.default.rp_filter = 1
+
+	# Do not accept source routing
+	net.ipv4.conf.default.accept_source_route = 0
+
+	# Controls the System Request debugging functionality of the kernel
+	kernel.sysrq = 0
+
+	# Controls whether core dumps will append the PID to the core filename.
+	# Useful for debugging multi-threaded applications.
+	kernel.core_uses_pid = 1
+
+	# Controls the use of TCP syncookies
+	net.ipv4.tcp_syncookies = 1
+
+	# Disable netfilter on bridges.
+	net.bridge.bridge-nf-call-ip6tables = 0
+	net.bridge.bridge-nf-call-iptables = 0
+	net.bridge.bridge-nf-call-arptables = 0
+
+	# Controls the default maxmimum size of a mesage queue
+	kernel.msgmnb = 65536
+
+	# Controls the maximum size of a message, in bytes
+	kernel.msgmax = 65536
+
+	# Controls the maximum shared segment size, in bytes
+	kernel.shmmax = 68719476736
+
+	# Controls the maximum number of shared memory segments, in pages
+	kernel.shmall = 4294967296
+
+	# Minimize time_wait
+	net.ipv4.tcp_tw_recycle = 1
+	net.ipv4.tcp_tw_reuse = 1
+
+	# open local ports for clients
+	net.ipv4.ip_local_port_range = 1024 65535
+
+	# settings for syn floods 
+	net.ipv4.tcp_max_syn_backlog = 262144
+	# Increase number of incoming connections backlog
+	net.core.netdev_max_backlog = 40000
+	# Increase the tcp-time-wait buckets pool size
+	net.ipv4.tcp_max_tw_buckets = 400000
+	# Increase number of max incoming connections
+	net.core.somaxconn = 40000
+	# Increase TCP performance
+	net.ipv4.neigh.default.unres_qlen = 6
+	net.ipv4.neigh.default.proxy_qlen = 96
+	# Increase size of socket buffers
+	net.ipv4.tcp_mem = 776352       1035136 16777216
+	# Set the minimum, initial, and maximum sizes for the write buffer. Note that this maximum should be less than or equal to the value set in net.core.wmem_max.
+	net.ipv4.tcp_wmem = 776352        1035136   16777216
+	# Set the minimum, initial, and maximum sizes for the read buffer. Note that this maximum should be less than or equal to the value set in net.core.rmem_max.
+	net.ipv4.tcp_rmem = 776352        1035136  16777216
+
+	net.core.rmem_max = 16777216
+	net.core.rmem_max = 16777216
+	net.ipv4.tcp_max_orphans = 256000
+	net.ipv4.tcp_timestamps = 0
+
+	# Use system memory to calculate this setting eg for 8GB.
+	net.netfilter.nf_conntrack_max = 656000
+	net.nf_conntrack_max = 656000
+
+	vm.swappiness = 0
+
+	net.ipv4.tcp_fin_timeout = 10
+	net.ipv4.tcp_no_metrics_save = 1
+
 ###Security
 
 

@@ -281,3 +281,9 @@ do c=$(find $d |wc -l) ; printf "$c\t\t- $d\n" ; done ; printf "Total: \t\t$(fin
 PNP4NAGIOS graphs location
 
 /opt/omd/versions/0.52/share/pnp4nagios/htdocs/templates.dist/
+
+Check_mk autocheck commands
+
+    #check_mk -I Hostname ( Takes inventory )
+    #check_mk -U ( Updates configs )
+    #check_mk -u ( Arrange autocheck files as hostname )

@@ -28,6 +28,8 @@ sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 
 ###Load Balancers
 
+haproxy Docs
+    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html
 
 ####Caching + Nosql
 

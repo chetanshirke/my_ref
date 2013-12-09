@@ -268,21 +268,6 @@ net.ipv4.tcp_synack_retries = 3
 	net.ipv4.tcp_no_metrics_save = 1
 
 
-http://www.linuxforu.com/2012/03/web-acceleration-varnish-3-wordpress-wptouch/
-
-http://www.linuxforu.com/2012/04/how-to-lock-down-wordpress-admin-access-using-socks5-proxy/
-
-http://www.linuxforu.com/2009/06/puppet-show-automating-unix-administration/
- 
-http://www.linuxforu.com/2010/11/data-centre-automation-puppet-master-client-setup/
- 
-http://www.linuxforu.com/2010/12/data-centre-automation-puppet-user-group-management/
- 
-http://www.linuxforu.com/2011/01/data-centre-automation-puppet-resources-types-examples/
- 
-http://www.linuxforu.com/2011/02/data-centre-automation-puppet-classes-modules/
- 
-http://www.linuxforu.com/2011/10/syn-flooding-using-scapy-and-prevention-using-iptables/
 
 ###Security
 
@@ -305,3 +290,33 @@ Check_mk autocheck commands
     #check_mk -I Hostname ( Takes inventory )
     #check_mk -U ( Updates configs )
     #check_mk -u ( Arrange autocheck files as hostname )
+    
+### Must Read
+
+http://ben.goodacre.name/tech/Possible_SYN_flooding_on_port_xxx._Sending_cookies_%28Linux%29
+
+http://sphinxsearch.com/docs/1.10/conf-max-iops.html
+
+http://sphinxsearch.com/forum/view.html?id=5136
+
+http://sphinxsearch.com/forum/view.html?id=8361
+
+http://www.ivinco.com/blog/sphinx-replication/
+
+http://sphinxsearch.com/blog/2012/08/14/indexing-tips-tricks/
+
+http://www.linuxforu.com/2012/03/web-acceleration-varnish-3-wordpress-wptouch/
+
+http://www.linuxforu.com/2012/04/how-to-lock-down-wordpress-admin-access-using-socks5-proxy/
+
+http://www.linuxforu.com/2009/06/puppet-show-automating-unix-administration/
+ 
+http://www.linuxforu.com/2010/11/data-centre-automation-puppet-master-client-setup/
+ 
+http://www.linuxforu.com/2010/12/data-centre-automation-puppet-user-group-management/
+ 
+http://www.linuxforu.com/2011/01/data-centre-automation-puppet-resources-types-examples/
+ 
+http://www.linuxforu.com/2011/02/data-centre-automation-puppet-classes-modules/
+ 
+http://www.linuxforu.com/2011/10/syn-flooding-using-scapy-and-prevention-using-iptables/

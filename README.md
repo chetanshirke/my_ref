@@ -267,7 +267,21 @@ net.ipv4.tcp_synack_retries = 3
 	net.ipv4.tcp_fin_timeout = 10
 	net.ipv4.tcp_no_metrics_save = 1
 
+Fin/Syn
+        net.ipv4.tcp_fin_timeout = 30
+	net.ipv4.tcp_keepalive_time = 600
+	net.ipv4.tcp_keepalive_probes = 5
+	net.ipv4.tcp_keepalive_intvl = 15
+	
+	net.netfilter.nf_conntrack_tcp_timeout_established = 40
 
+	net.netfilter.nf_conntrack_tcp_timeout_close = 	10
+	net.netfilter.nf_conntrack_tcp_timeout_close_wait = 10
+	net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 10
+	net.netfilter.nf_conntrack_tcp_timeout_last_ack = 10
+	net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 10
+	net.netfilter.nf_conntrack_tcp_timeout_syn_sent = 10
+	net.netfilter.nf_conntrack_tcp_timeout_time_wait = 10
 
 ###Security
 

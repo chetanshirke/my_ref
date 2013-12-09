@@ -267,6 +267,23 @@ net.ipv4.tcp_synack_retries = 3
 	net.ipv4.tcp_fin_timeout = 10
 	net.ipv4.tcp_no_metrics_save = 1
 
+
+http://www.linuxforu.com/2012/03/web-acceleration-varnish-3-wordpress-wptouch/
+
+http://www.linuxforu.com/2012/04/how-to-lock-down-wordpress-admin-access-using-socks5-proxy/
+
+http://www.linuxforu.com/2009/06/puppet-show-automating-unix-administration/
+ 
+http://www.linuxforu.com/2010/11/data-centre-automation-puppet-master-client-setup/
+ 
+http://www.linuxforu.com/2010/12/data-centre-automation-puppet-user-group-management/
+ 
+http://www.linuxforu.com/2011/01/data-centre-automation-puppet-resources-types-examples/
+ 
+http://www.linuxforu.com/2011/02/data-centre-automation-puppet-classes-modules/
+ 
+http://www.linuxforu.com/2011/10/syn-flooding-using-scapy-and-prevention-using-iptables/
+
 ###Security
 
 

@@ -4,6 +4,8 @@
 
 Centos 5.x
 
+Cronjob monthly first week "30 23 * * 2   [ `date +\%d` -le 7 ] && /var/lib/haproxy/haproxy-geoip"
+
 wget http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
 
 wget http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
@@ -268,6 +270,7 @@ net.ipv4.tcp_synack_retries = 3
 	net.ipv4.tcp_no_metrics_save = 1
 
 Fin/Syn
+        
         net.ipv4.tcp_fin_timeout = 30
 	net.ipv4.tcp_keepalive_time = 600
 	net.ipv4.tcp_keepalive_probes = 5

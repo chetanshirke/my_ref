@@ -34,6 +34,18 @@ sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 
 ####Caching + Nosql
 
+## check_mk
+
+PNP4NAGIOS graphs location
+
+/opt/omd/versions/0.52/share/pnp4nagios/htdocs/templates.dist/
+
+Check_mk autocheck commands
+
+    #check_mk -I Hostname ( Takes inventory )
+    #check_mk -U ( Updates configs )
+    #check_mk -u ( Arrange autocheck files as hostname )
+    
 
 ###Apps
 #### App Performance Tests
@@ -164,6 +176,19 @@ sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 
 ###Database
 
+watch --differences=cumulative -n 0  "mysql -e 'SHOW SLAVE STATUS\G' | grep Seconds_Behind_Master"
+
+Fix Replication issue on mysql
+
+	Master_Log_File (Line 6) : Log File on the Master whose position was last read
+    	Read_Master_Log_Pos (Line 7) : Last position read on the Slave from the Master
+    	Relay_Master_Log_File (Line 10) : Log File on the Master whose position was last executed
+    	Exec_Master_Log_Pos (Line 22) : Last position executed on the Slave from the Master
+    	Relay_Log_Space (Line 23) : Sum of bytes from all relay logs
+
+	STOP SLAVE;
+	CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.002814',MASTER_LOG_POS=823078734;
+	START SLAVE;
 
 ##Networking
 
@@ -296,18 +321,7 @@ Fin/Syn
 echo "Detailed Inode usage for: $(pwd)" ; for d in `find -maxdepth 1 -type d |cut -d\/ -f2 |grep -xv . |sort`; \
 do c=$(find $d |wc -l) ; printf "$c\t\t- $d\n" ; done ; printf "Total: \t\t$(find $(pwd) | wc -l)\n"
 
-## check_mk
 
-PNP4NAGIOS graphs location
-
-/opt/omd/versions/0.52/share/pnp4nagios/htdocs/templates.dist/
-
-Check_mk autocheck commands
-
-    #check_mk -I Hostname ( Takes inventory )
-    #check_mk -U ( Updates configs )
-    #check_mk -u ( Arrange autocheck files as hostname )
-    
 ### Must Read
 
 http://ben.goodacre.name/tech/Possible_SYN_flooding_on_port_xxx._Sending_cookies_%28Linux%29

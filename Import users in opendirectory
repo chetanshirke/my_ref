@@ -1,0 +1,105 @@
+#!/bin/bash
+
+#	Import Users into an Open Directory Domain
+#	by Dan Barrett
+#	http://yesdevnull.net
+
+#	You may need to change the details below depending on your configuration
+#	and settings
+
+#	Arguments:
+#	* 	Path to the CSV
+
+#	CSV format should be:
+#	+------------+---------+------------+----------+
+#	| First Name | Surname | Student ID | Password |
+#	+------------+---------+------------+----------+
+
+#	Note: You must ensure that the line endings for the CSV are Unix (or CRLF)
+#	and you have an empty line on the last line
+
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+
+#	This will work if you're running it on the Directory Service Domain, change
+#	it if you're running the script on another bound machine
+directoryDomain="/LDAPv3/127.0.0.1"
+#	Username of a directory administrator
+directoryUsername="masterdiradmin"
+#	Password for the above directory administrator
+directoryPassword="masterpass"
+
+#	Username for an administrator of the server ( aka Local Domain or . )
+#	(for local groups like com.apple.access_radius)
+serverUsername="serveradmin"
+#	Password for the above server administrator
+serverPassword="serverpass"
+
+#	Primary Group ID ("Open Directory Users" group on OS X Server is 20)
+primaryGroupID="20"
+#	NFS Home Directory (leave this as /dev/null if the users are services only)
+nfsHomeDirectory="/dev/null"
+#	Shell path for the user
+userShell="/usr/bin/false"
+#	Domain for the email address (e.g. pretendco.com, apple.com)
+emailDomain="pretendco.com"
+
+#	List of local groups to add the user to (separate each group with a space)
+localGroups=( com.apple.access_radius com.apple.access_afp com.apple.access_addressbook )
+#	List of network groups to add the user to (separate each group with a space)
+networkGroups=( workgroup )
+
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+#*#*# Anything Below Here Should Not Be Changed #*#*#
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
+#	This function will get the most recent UniqueID for the directory domain,
+#	then increase by 1 for the next user to add
+getLastID() {
+	getUIDs=`dscl $directoryDomain -list /Users UniqueID`
+
+	UIDArray=`echo -E "$getUIDs" | grep -E -o "[0-9]+$"`
+
+	nextID=`echo "${UIDArray[*]}" | sort -nr | head -n1`
+
+	nextID=$(( $nextID + 1 ))
+
+	echo $nextID
+}
+
+#	Iterate through the CSV and obtain these variables
+while IFS=, read importFirstName importLastName importID importPassword
+	do
+		#	Create the shortname from their name and student ID
+		#	e.g. John Smith with Student ID of 1337 would be js1337
+		#	e.g. Jim Halpert with Student ID of 27144 would be jh27144
+		shortname=`echo "${importFirstName:0:1}${importLastName:0:1}$importID" | tr "[:upper:]" "[:lower:]"`
+
+		#	DSCL Magic
+		#	Go through and add all these details to the LDAP domain
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname UniqueID $( getLastID )`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname FirstName $importFirstName`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname LastName $importLastName`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname RealName "$importFirstName $importLastName"`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname EMailAddress "${shortname}@${emailDomain}"`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname Comment "Student ID: $importID"`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname Keywords "students"`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname PrimaryGroupID 20`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname UserShell $userShell`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -create /Users/$shortname NFSHomeDirectory $nfsHomeDirectory`
+		`dscl -u $directoryUsername -P $directoryPassword $directoryDomain -passwd /Users/$shortname "$importPassword"`
+
+		#	Iterate through each local group and add the user to that group
+		for localGroup in "${localGroups[@]}"
+		do
+			`dseditgroup -o edit -u $serverUsername -P $serverPassword -a $shortname -t user $localGroup`
+		done
+		
+		#	Iterate through each network group and add the user to that group
+		for networkGroup in "${networkGroups[@]}"
+		do
+			`dseditgroup -o edit -u $directoryUsername -P $directoryPassword -n $directoryDomain -a $shortname -t user $networkGroup`
+		done
+		
+		echo "`date "+%Y-%m-%d %H:%M:%S"`: Added $importFirstName $importLastName ($shortname) to $directoryDomain."
+done < $1
